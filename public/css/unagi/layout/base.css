@@ -1,0 +1,1530 @@
+/* ===============================
+   UNAGI PIERCING & JEWELRY
+   E-Commerce Edition
+   Colores: Dorado, Bordó, Azul, Amarillo
+================================ */
+
+/* ===============================
+   RESET + BASE
+================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #ffffff;
+    color: var(--color-text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ===============================
+   VARIABLES - UNAGI PALETTE
+================================ */
+
+:root {
+    /* Brand Colors */
+    --color-gold: #c9a227;
+    --color-gold-light: #e4c766;
+    --color-gold-dark: #a88620;
+
+    --color-bordo: #8b1538;
+    --color-bordo-light: #a82848;
+    --color-bordo-dark: #6d0f2b;
+
+    --color-blue: #1a4d6e;
+    --color-blue-light: #2a7cb3;
+    --color-blue-dark: #133b55;
+
+    --color-yellow: #f4b942;
+    --color-yellow-light: #f7cb6e;
+    --color-yellow-dark: #d9a035;
+
+    /* Base */
+    --color-bg: #ffffff;
+    --color-bg-soft: #fafafa;
+    --color-bg-muted: #f5f5f5;
+    --color-text: #1a1a1a;
+    --color-text-secondary: #555555;
+    --color-text-muted: #888888;
+    --color-border: #e8e8e8;
+
+    /* Layout */
+    --container-width: 1400px;
+    --header-height: 70px;
+    --announcement-height: 42px;
+
+    /* Transitions */
+    --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-fast: 0.2s var(--ease-smooth);
+    --transition-base: 0.3s var(--ease-smooth);
+    --transition-slow: 0.5s var(--ease-out);
+}
+
+/* ===============================
+   TYPOGRAPHY
+================================ */
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--color-text);
+}
+
+h1 {
+    font-size: clamp(2.2rem, 6vw, 4.5rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+h2 {
+    font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+}
+
+h3 {
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+}
+
+p {
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* ===============================
+   LAYOUT
+================================ */
+
+.container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.section {
+    padding: 5rem 2rem;
+    max-width: var(--container-width);
+    margin: 0 auto;
+}
+
+/* ===============================
+   ANNOUNCEMENT BAR
+   Barra de promos estilo e-commerce
+================================ */
+
+.announcement-bar {
+    background: var(--color-bordo);
+    color: #fff;
+    height: var(--announcement-height);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    z-index: 1001;
+}
+
+.announcement-bar--gold { background: var(--color-gold); }
+.announcement-bar--blue { background: var(--color-blue); }
+
+/* Variante: barra multicolor segmentada (identidad UNAGI) */
+.announcement-bar--unagi {
+    background: linear-gradient(90deg,
+    var(--color-bordo) 0%, var(--color-bordo) 25%,
+    var(--color-blue) 25%, var(--color-blue) 50%,
+    var(--color-gold) 50%, var(--color-gold) 75%,
+    var(--color-yellow) 75%, var(--color-yellow) 100%
+    );
+}
+
+.announcement-bar__track {
+    display: inline-flex;
+    gap: 3.5rem;
+    animation: marquee 25s linear infinite;
+    white-space: nowrap;
+    padding-right: 3.5rem;
+}
+
+.announcement-bar__item {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.announcement-bar__item strong {
+    font-weight: 700;
+}
+
+/* Separador dot entre items */
+.announcement-bar__item::after {
+    content: '';
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    margin-left: 3rem;
+}
+
+.announcement-bar__item:last-child::after {
+    display: none;
+}
+
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.announcement-bar:hover .announcement-bar__track {
+    animation-play-state: paused;
+}
+
+/* ===============================
+   HEADER
+================================ */
+
+.header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: #ffffff;
+    border-bottom: 1px solid var(--color-border);
+    transition: box-shadow var(--transition-base);
+}
+
+.header.scrolled {
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
+}
+
+.header-inner {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 2rem;
+    height: var(--header-height);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ===============================
+   LOGO
+================================ */
+
+.logo a {
+    color: var(--color-text);
+    font-weight: 800;
+    text-decoration: none;
+    font-size: 1.5rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    transition: opacity var(--transition-fast);
+}
+
+.logo a:hover {
+    opacity: 0.7;
+}
+
+/* Si usas imagen de logo */
+.logo img {
+    height: 75px;
+    width: auto;
+}
+
+/* ===============================
+   NAVIGATION
+================================ */
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+}
+
+.nav-links a {
+    color: var(--color-text);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    padding: 0.4rem 0;
+    position: relative;
+    transition: color var(--transition-fast);
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--color-bordo);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform var(--transition-base);
+}
+
+/* Nav link colors: ciclo UNAGI bordo -> gold -> blue -> yellow */
+.nav-links > li:nth-child(4n+1) > a { --nav-color: var(--color-bordo); }
+.nav-links > li:nth-child(4n+2) > a { --nav-color: var(--color-gold-dark); }
+.nav-links > li:nth-child(4n+3) > a { --nav-color: var(--color-blue); }
+.nav-links > li:nth-child(4n+4) > a { --nav-color: var(--color-yellow-dark); }
+
+.nav-links a::after {
+    background: var(--nav-color, var(--color-bordo));
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.nav-links > li > a:hover,
+.nav-links > li > a.active {
+    color: var(--nav-color, var(--color-bordo));
+}
+
+/* ===============================
+   MEGA MENU / DROPDOWN
+================================ */
+
+.nav-links .has-dropdown {
+    position: relative;
+}
+
+/* Hover bridge: invisible area que conecta el link con el dropdown */
+.nav-links .has-dropdown::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 12px;
+    background: transparent;
+}
+
+.nav-links .dropdown {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%) translateY(6px);
+    background: #ffffff;
+    border: none;
+    border-radius: 0;
+    border-top: 3px solid var(--nav-color, var(--color-bordo));
+    padding: 1.5rem 0;
+    min-width: 260px;
+    list-style: none;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+        opacity 0.25s var(--ease-smooth),
+        transform 0.25s var(--ease-smooth),
+        visibility 0.25s var(--ease-smooth);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1), 0 2px 10px rgba(0, 0, 0, 0.04);
+    z-index: 100;
+}
+
+.nav-links .has-dropdown:hover .dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Dropdown items */
+.dropdown li {
+    list-style: none;
+}
+
+.dropdown a {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.65rem 1.75rem;
+    font-size: 0.88rem;
+    text-transform: none;
+    letter-spacing: 0.01em;
+    font-weight: 400;
+    color: var(--color-text-secondary);
+    position: relative;
+    transition:
+        color var(--transition-fast),
+        background var(--transition-fast),
+        padding-left var(--transition-fast);
+}
+
+.dropdown a::before {
+    content: '';
+    width: 0;
+    height: 2px;
+    background: var(--nav-color, var(--color-bordo));
+    border-radius: 2px;
+    transition: width 0.25s var(--ease-smooth);
+    flex-shrink: 0;
+}
+
+.dropdown a::after {
+    display: none;
+}
+
+.dropdown a:hover {
+    color: var(--color-text);
+    background: var(--color-bg-soft);
+    padding-left: 2rem;
+}
+
+.dropdown a:hover::before {
+    width: 14px;
+}
+
+/* Dropdown separator (optional class) */
+.dropdown__separator {
+    height: 1px;
+    background: var(--color-border);
+    margin: 0.5rem 1.75rem;
+}
+
+/* "Ver todo" link en dropdown */
+.dropdown .dropdown__view-all a {
+    font-weight: 600;
+    color: var(--nav-color, var(--color-bordo));
+    text-transform: uppercase;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    margin-top: 0.25rem;
+    border-top: 1px solid var(--color-border);
+    padding-top: 1rem;
+}
+
+/* Header Utility Icons (search, user, cart) */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.header-actions button,
+.header-actions a {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-text);
+    padding: 0.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: color var(--transition-fast);
+}
+
+.header-actions button:hover,
+.header-actions a:hover {
+    color: var(--color-bordo);
+}
+
+/* Cart count badge */
+.cart-count {
+    position: absolute;
+    top: -4px;
+    right: -6px;
+    background: var(--color-bordo);
+    color: #fff;
+    font-size: 0.6rem;
+    font-weight: 700;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+/* ===============================
+   BURGER MENU
+================================ */
+
+.burger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 1001;
+    gap: 5px;
+    background: none;
+    border: none;
+}
+
+.burger div {
+    width: 24px;
+    height: 2px;
+    background: var(--color-text);
+    border-radius: 2px;
+    transition:
+        transform 0.35s var(--ease-smooth),
+        opacity 0.25s ease;
+    transform-origin: center;
+}
+
+.burger.active div:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.burger.active div:nth-child(2) {
+    opacity: 0;
+}
+
+.burger.active div:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ===============================
+   HERO
+================================ */
+
+.hero {
+    position: relative;
+    min-height: 75vh;
+    display: flex;
+    align-items: flex-end;
+    padding: 4rem 2rem;
+    overflow: hidden;
+    background: var(--color-bg-muted);
+}
+
+/* Hero con imagen de fondo */
+.hero--image {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.hero--image::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.55) 0%,
+        rgba(0, 0, 0, 0.15) 50%,
+        transparent 100%
+    );
+}
+
+/* Hero centrado (sin imagen) */
+.hero--center {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 65vh;
+}
+
+.hero__content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+}
+
+.hero--image .hero__content h1,
+.hero--image .hero__content p {
+    color: #ffffff;
+}
+
+.hero--image .hero__content p {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.hero h1 {
+    margin-bottom: 1rem;
+    text-wrap: balance;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    max-width: 50ch;
+    margin-bottom: 2rem;
+}
+
+.hero__actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Hero full-width (estilo Rona) */
+.hero--full {
+    min-height: 80vh;
+    padding: 5rem 3rem;
+}
+
+.hero--full h1 {
+    font-size: clamp(2.5rem, 7vw, 5.5rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+}
+
+/* ===============================
+   TRUST BADGES (Iconos de confianza)
+================================ */
+
+.trust-bar {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 3rem;
+    padding: 3rem 2rem;
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.trust-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    text-align: center;
+    max-width: 160px;
+}
+
+.trust-item__icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.trust-item__icon img,
+.trust-item__icon svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.trust-item__label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text);
+    line-height: 1.3;
+}
+
+/* ===============================
+   COLOR BAR (Identidad UNAGI)
+   Barra decorativa sutil
+================================ */
+
+.color-bar {
+    height: 4px;
+    background: linear-gradient(90deg,
+    var(--color-bordo) 0%, var(--color-bordo) 25%,
+    var(--color-blue) 25%, var(--color-blue) 50%,
+    var(--color-gold) 50%, var(--color-gold) 75%,
+    var(--color-yellow) 75%, var(--color-yellow) 100%
+    );
+}
+
+.color-bar--thin { height: 3px; }
+.color-bar--thick { height: 6px; }
+
+/* ===============================
+   PRODUCT CARD
+================================ */
+
+.product-card {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    cursor: pointer;
+}
+
+.product-card__image {
+    aspect-ratio: 1;
+    background: var(--color-bg-muted);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.product-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s var(--ease-out);
+}
+
+.product-card:hover .product-card__image img {
+    transform: scale(1.05);
+}
+
+/* Quick action overlay */
+.product-card__actions {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    transform: translateY(100%);
+    transition: transform var(--transition-base);
+}
+
+.product-card:hover .product-card__actions {
+    transform: translateY(0);
+}
+
+/* Tags (nuevo, oferta, agotado) */
+.product-card__tag {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    padding: 0.3rem 0.75rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    z-index: 2;
+    border-radius: 2px;
+}
+
+.product-card__tag--new {
+    background: var(--color-blue);
+    color: #fff;
+}
+
+.product-card__tag--sale {
+    background: var(--color-bordo);
+    color: #fff;
+}
+
+.product-card__tag--sold-out {
+    background: var(--color-text-muted);
+    color: #fff;
+}
+
+.product-card__tag--featured {
+    background: var(--color-gold);
+    color: #fff;
+}
+
+/* Second image on hover */
+.product-card__image--hover {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity var(--transition-base);
+}
+
+.product-card:hover .product-card__image--hover {
+    opacity: 1;
+}
+
+.product-card__info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.product-card__name {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-text);
+    transition: color var(--transition-fast);
+    line-height: 1.4;
+}
+
+.product-card:hover .product-card__name {
+    color: var(--color-bordo);
+}
+
+.product-card__price {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.product-card__price-current {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-text);
+}
+
+.product-card__price-old {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    text-decoration: line-through;
+}
+
+.product-card__price-discount {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-bordo);
+}
+
+/* Cuotas */
+.product-card__installments {
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
+}
+
+.product-card__installments strong {
+    color: var(--color-gold-dark);
+    font-weight: 600;
+}
+
+/* Transfer discount */
+.product-card__transfer {
+    font-size: 0.78rem;
+    color: var(--color-blue);
+    font-weight: 500;
+}
+
+/* Variant dots (colors) */
+.product-card__variants {
+    display: flex;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+}
+
+.product-card__variant {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1.5px solid var(--color-border);
+    cursor: pointer;
+    transition:
+        border-color var(--transition-fast),
+        transform var(--transition-fast);
+}
+
+.product-card__variant:hover,
+.product-card__variant.active {
+    border-color: var(--color-text);
+    transform: scale(1.15);
+}
+
+/* ===============================
+   PRODUCT GRID
+================================ */
+
+.product-grid {
+    display: grid;
+    gap: 2rem 1.5rem;
+}
+
+.product-grid--2 { grid-template-columns: repeat(2, 1fr); }
+.product-grid--3 { grid-template-columns: repeat(3, 1fr); }
+.product-grid--4 { grid-template-columns: repeat(4, 1fr); }
+
+/* ===============================
+   SECTION HEADING
+================================ */
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.section-heading h2 {
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+}
+
+.section-heading a {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-bordo);
+    transition: opacity var(--transition-fast);
+}
+
+.section-heading a:hover {
+    opacity: 0.7;
+}
+
+/* Variante con color bar */
+.section-heading--bar {
+    border-bottom: none;
+    padding-bottom: 0;
+    position: relative;
+}
+
+.section-heading--bar::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+    var(--color-bordo) 0%, var(--color-bordo) 25%,
+    var(--color-blue) 25%, var(--color-blue) 50%,
+    var(--color-gold) 50%, var(--color-gold) 75%,
+    var(--color-yellow) 75%, var(--color-yellow) 100%
+    );
+}
+
+/* ===============================
+   FEATURED BANNER (50/50)
+================================ */
+
+.featured-banner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    overflow: hidden;
+}
+
+.featured-banner__image {
+    position: relative;
+    overflow: hidden;
+    background: var(--color-bg-muted);
+}
+
+.featured-banner__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s var(--ease-out);
+}
+
+.featured-banner:hover .featured-banner__image img {
+    transform: scale(1.03);
+}
+
+.featured-banner__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4rem;
+}
+
+.featured-banner__content--bordo { background: var(--color-bordo); color: #fff; }
+.featured-banner__content--bordo h2,
+.featured-banner__content--bordo h3 { color: #fff; }
+.featured-banner__content--bordo p { color: rgba(255, 255, 255, 0.8); }
+
+.featured-banner__content--gold { background: var(--color-gold); color: #fff; }
+.featured-banner__content--gold h2,
+.featured-banner__content--gold h3 { color: #fff; }
+.featured-banner__content--gold p { color: rgba(255, 255, 255, 0.85); }
+
+.featured-banner__content--blue { background: var(--color-blue); color: #fff; }
+.featured-banner__content--blue h2,
+.featured-banner__content--blue h3 { color: #fff; }
+.featured-banner__content--blue p { color: rgba(255, 255, 255, 0.8); }
+
+.featured-banner__subtitle {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    opacity: 0.7;
+}
+
+.featured-banner__content h2 {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    margin-bottom: 1rem;
+}
+
+.featured-banner__content p {
+    margin-bottom: 2rem;
+    max-width: 40ch;
+}
+
+/* ===============================
+   CATEGORY CARDS
+================================ */
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.category-card {
+    position: relative;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.category-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s var(--ease-out);
+}
+
+.category-card:hover img {
+    transform: scale(1.06);
+}
+
+.category-card__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.6) 0%,
+        transparent 60%
+    );
+    display: flex;
+    align-items: flex-end;
+    padding: 1.5rem;
+    transition: background var(--transition-base);
+}
+
+.category-card:hover .category-card__overlay {
+    background: linear-gradient(
+        to top,
+        rgba(139, 21, 56, 0.7) 0%,
+        transparent 60%
+    );
+}
+
+.category-card__name {
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+/* ===============================
+   BUTTONS
+================================ */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.9rem 2rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition:
+        background var(--transition-fast),
+        color var(--transition-fast),
+        box-shadow var(--transition-fast),
+        transform var(--transition-fast);
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+/* Primary: bordó */
+.btn--primary {
+    background: var(--color-bordo);
+    color: #fff;
+}
+
+.btn--primary:hover {
+    background: var(--color-bordo-dark);
+}
+
+/* Secondary: gold */
+.btn--gold {
+    background: var(--color-gold);
+    color: #fff;
+}
+
+.btn--gold:hover {
+    background: var(--color-gold-dark);
+}
+
+/* Outline */
+.btn--outline {
+    background: transparent;
+    color: var(--color-text);
+    border: 1.5px solid var(--color-text);
+}
+
+.btn--outline:hover {
+    background: var(--color-text);
+    color: #fff;
+}
+
+.btn--outline-white {
+    background: transparent;
+    color: #fff;
+    border: 1.5px solid #fff;
+}
+
+.btn--outline-white:hover {
+    background: #fff;
+    color: var(--color-text);
+}
+
+/* Full width */
+.btn--full {
+    width: 100%;
+}
+
+/* Small */
+.btn--sm {
+    padding: 0.6rem 1.25rem;
+    font-size: 0.78rem;
+}
+
+/* Link */
+.btn--link {
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--color-bordo);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    position: relative;
+}
+
+.btn--link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 1.5px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform var(--transition-base);
+}
+
+.btn--link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* ===============================
+   BADGES
+================================ */
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-radius: 2px;
+}
+
+.badge--bordo { background: var(--color-bordo); color: #fff; }
+.badge--gold { background: var(--color-gold); color: #fff; }
+.badge--blue { background: var(--color-blue); color: #fff; }
+.badge--muted { background: var(--color-bg-muted); color: var(--color-text-secondary); }
+
+/* ===============================
+   FREE SHIPPING BAR
+================================ */
+
+.shipping-bar {
+    background: var(--color-bg-muted);
+    padding: 0.75rem 2rem;
+    text-align: center;
+    font-size: 0.82rem;
+    color: var(--color-text-secondary);
+}
+
+.shipping-bar strong {
+    color: var(--color-gold-dark);
+    font-weight: 600;
+}
+
+.shipping-bar__progress {
+    width: 100%;
+    max-width: 300px;
+    height: 3px;
+    background: var(--color-border);
+    border-radius: 3px;
+    margin: 0.5rem auto 0;
+    overflow: hidden;
+}
+
+.shipping-bar__fill {
+    height: 100%;
+    background: var(--color-gold);
+    border-radius: 3px;
+    transition: width 0.5s var(--ease-out);
+}
+
+/* ===============================
+   FOOTER
+================================ */
+
+.footer {
+    background: var(--color-text);
+    color: #fff;
+    padding: 0;
+}
+
+/* Color bar top */
+.footer .color-bar {
+    margin-bottom: 0;
+}
+
+.footer__main {
+    display: grid;
+    grid-template-columns: 1.5fr repeat(3, 1fr);
+    gap: 3rem;
+    padding: 4rem 2rem;
+    max-width: var(--container-width);
+    margin: 0 auto;
+}
+
+.footer__brand p {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.88rem;
+    margin-top: 1rem;
+    max-width: 30ch;
+}
+
+.footer__brand .logo a {
+    color: #fff;
+}
+
+.footer__col h4 {
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.25rem;
+}
+
+.footer__col ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.footer__col a {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.88rem;
+    transition: color var(--transition-fast);
+}
+
+.footer__col a:hover {
+    color: var(--color-gold-light);
+}
+
+/* Social icons */
+.footer__social {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.footer__social a {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+        background var(--transition-fast),
+        border-color var(--transition-fast);
+}
+
+.footer__social a:hover {
+    background: var(--color-bordo);
+    border-color: var(--color-bordo);
+    color: #fff;
+}
+
+.footer__bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.5rem 2rem;
+    max-width: var(--container-width);
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer__bottom p {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.82rem;
+}
+
+.footer-inner {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 2.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-inner p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.88rem;
+}
+
+/* ===============================
+   WHATSAPP FLOATING BUTTON
+================================ */
+
+.whatsapp-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 56px;
+    height: 56px;
+    background: #25d366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+    z-index: 999;
+    transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast);
+}
+
+.whatsapp-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 30px rgba(37, 211, 102, 0.5);
+}
+
+/* ===============================
+   GRIDS
+================================ */
+
+.grid {
+    display: grid;
+    gap: 2rem;
+}
+
+.grid--2 { grid-template-columns: repeat(2, 1fr); }
+.grid--3 { grid-template-columns: repeat(3, 1fr); }
+.grid--4 { grid-template-columns: repeat(4, 1fr); }
+
+/* ===============================
+   UTILITY CLASSES
+================================ */
+
+.text-bordo { color: var(--color-bordo); }
+.text-gold { color: var(--color-gold); }
+.text-blue { color: var(--color-blue); }
+.text-yellow { color: var(--color-yellow); }
+
+.bg-soft { background-color: var(--color-bg-soft); }
+.bg-muted { background-color: var(--color-bg-muted); }
+
+.text-center { text-align: center; }
+.text-balance { text-wrap: balance; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+
+/* ===============================
+   SELECTION & SCROLLBAR
+================================ */
+
+::selection {
+    background: var(--color-bordo);
+    color: #fff;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-bg-muted);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-text-muted);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-text-secondary);
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 1024px) {
+    .product-grid--4 { grid-template-columns: repeat(3, 1fr); }
+    .footer__main { grid-template-columns: repeat(2, 1fr); }
+
+    .featured-banner {
+        grid-template-columns: 1fr;
+    }
+
+    .featured-banner__content {
+        padding: 3rem 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --header-height: 60px;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100vh;
+        background: #ffffff;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        transform: translateX(100%);
+        transition: transform 0.4s var(--ease-out);
+        z-index: 1000;
+    }
+
+    .nav-links.nav-active {
+        transform: translateX(0);
+    }
+
+    .nav-links a {
+        font-size: 1.4rem;
+    }
+
+    .burger {
+        display: flex;
+    }
+
+    .section {
+        padding: 3.5rem 1.5rem;
+    }
+
+    .product-grid--3,
+    .product-grid--4 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .category-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .trust-bar {
+        flex-wrap: wrap;
+        gap: 2rem 3rem;
+    }
+
+    .footer__main {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 3rem 1.5rem;
+    }
+
+    .hero--full h1 {
+        font-size: clamp(2rem, 10vw, 3.5rem);
+    }
+
+    .hero {
+        min-height: 60vh;
+        padding: 3rem 1.5rem;
+    }
+
+    .header-actions {
+        gap: 0.75rem;
+    }
+
+    .announcement-bar__item {
+        font-size: 0.72rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-inner {
+        padding: 0 1rem;
+    }
+
+    .product-grid--2,
+    .product-grid--3,
+    .product-grid--4 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+    }
+
+    .product-card__name { font-size: 0.82rem; }
+    .product-card__price-current { font-size: 0.88rem; }
+
+    .btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.8rem;
+    }
+
+    .footer__bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.75rem;
+    }
+}
+
+/* ===============================
+   PREFERS REDUCED MOTION
+================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    html {
+        scroll-behavior: auto;
+    }
+}

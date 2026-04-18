@@ -1,0 +1,626 @@
+/* ===============================
+   SHOP PAGE
+   Filtros laterales + grilla de productos
+   Extiende: unagi-base.css
+================================ */
+
+/* ===============================
+   SHOP LAYOUT (sidebar + grid)
+================================ */
+
+.shop {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 2.5rem;
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 2.5rem 2rem;
+    align-items: start;
+}
+
+/* ===============================
+   SHOP HEADER (breadcrumb + sort + count)
+================================ */
+
+.shop-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border);
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.shop-header__info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.shop-header__title {
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.shop-header__count {
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+}
+
+.shop-header__sort {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.shop-header__sort label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+}
+
+.shop-header__sort select {
+    appearance: none;
+    -webkit-appearance: none;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    padding: 0.5rem 2rem 0.5rem 0.75rem;
+    font-size: 0.82rem;
+    font-family: inherit;
+    color: var(--color-text);
+    cursor: pointer;
+    border-radius: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23555' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.6rem center;
+    transition: border-color var(--transition-fast);
+}
+
+.shop-header__sort select:focus {
+    outline: none;
+    border-color: var(--color-bordo);
+}
+
+/* ===============================
+   BREADCRUMB
+================================ */
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 1.25rem 2rem;
+    max-width: var(--container-width);
+    margin: 0 auto;
+    list-style: none;
+}
+
+.breadcrumb__item {
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
+}
+
+.breadcrumb__item a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.breadcrumb__item a:hover {
+    color: var(--color-bordo);
+}
+
+.breadcrumb__separator {
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    opacity: 0.5;
+    user-select: none;
+}
+
+.breadcrumb__item--active {
+    color: var(--color-text);
+    font-weight: 500;
+}
+
+/* ===============================
+   SIDEBAR FILTERS
+================================ */
+
+.shop-sidebar {
+    position: sticky;
+    top: calc(var(--header-height) + var(--announcement-height) + 1.5rem);
+    max-height: calc(100vh - var(--header-height) - var(--announcement-height) - 3rem);
+    overflow-y: auto;
+    padding-right: 1rem;
+
+    /* Custom scrollbar para sidebar */
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border) transparent;
+}
+
+.shop-sidebar::-webkit-scrollbar {
+    width: 4px;
+}
+
+.shop-sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.shop-sidebar::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 4px;
+}
+
+/* Filter group */
+.filter-group {
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.filter-group:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.filter-group__title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text);
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Collapsible toggle icon */
+.filter-group__toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem;
+    color: var(--color-text-muted);
+    transition: transform var(--transition-fast);
+    display: flex;
+    align-items: center;
+}
+
+.filter-group__toggle svg {
+    width: 14px;
+    height: 14px;
+    transition: transform var(--transition-fast);
+}
+
+.filter-group.collapsed .filter-group__toggle svg {
+    transform: rotate(-90deg);
+}
+
+.filter-group__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.filter-group.collapsed .filter-group__list {
+    display: none;
+}
+
+/* Filter item (link) */
+.filter-group__item a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    border-radius: 2px;
+    transition:
+        color var(--transition-fast),
+        background var(--transition-fast);
+}
+
+.filter-group__item a:hover {
+    color: var(--color-text);
+    background: var(--color-bg-muted);
+}
+
+/* Active filter */
+.filter-group__item--active a {
+    color: var(--color-bordo);
+    font-weight: 600;
+    background: rgba(139, 21, 56, 0.06);
+}
+
+.filter-group__item--active a::before {
+    content: '';
+    width: 3px;
+    height: 14px;
+    background: var(--color-bordo);
+    border-radius: 2px;
+    margin-right: 0.5rem;
+    flex-shrink: 0;
+}
+
+/* Count badge in filter */
+.filter-group__count {
+    font-size: 0.72rem;
+    color: var(--color-text-muted);
+    background: var(--color-bg-muted);
+    padding: 0.15rem 0.5rem;
+    border-radius: 10px;
+    min-width: 24px;
+    text-align: center;
+}
+
+/* ===============================
+   ACTIVE FILTERS BAR (chips)
+================================ */
+
+.active-filters {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
+.active-filters__label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.active-filters__chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.78rem;
+    font-weight: 500;
+    background: var(--color-bg-muted);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: 2px;
+    text-decoration: none;
+    transition:
+        border-color var(--transition-fast),
+        background var(--transition-fast);
+}
+
+.active-filters__chip:hover {
+    border-color: var(--color-bordo);
+    background: rgba(139, 21, 56, 0.04);
+}
+
+.active-filters__chip svg {
+    width: 12px;
+    height: 12px;
+    opacity: 0.5;
+    transition: opacity var(--transition-fast);
+}
+
+.active-filters__chip:hover svg {
+    opacity: 1;
+}
+
+.active-filters__clear {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-bordo);
+    text-decoration: none;
+    margin-left: 0.5rem;
+    transition: opacity var(--transition-fast);
+}
+
+.active-filters__clear:hover {
+    opacity: 0.7;
+}
+
+/* ===============================
+   SHOP MAIN (grid de productos)
+================================ */
+
+.shop-main {
+    min-width: 0; /* Evita overflow en grid */
+}
+
+/* ===============================
+   SHOP EMPTY STATE
+================================ */
+
+.shop-empty {
+    text-align: center;
+    padding: 5rem 2rem;
+}
+
+.shop-empty__icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 1.5rem;
+    color: var(--color-text-muted);
+    opacity: 0.4;
+}
+
+.shop-empty__title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 0.5rem;
+}
+
+.shop-empty__text {
+    font-size: 0.88rem;
+    color: var(--color-text-muted);
+    margin-bottom: 2rem;
+    max-width: 40ch;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ===============================
+   PAGINATION
+================================ */
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+}
+
+.pagination__link,
+.pagination__current,
+.pagination__dots {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition:
+        color var(--transition-fast),
+        background var(--transition-fast),
+        border-color var(--transition-fast);
+}
+
+.pagination__link {
+    color: var(--color-text-secondary);
+    border: 1px solid transparent;
+}
+
+.pagination__link:hover {
+    color: var(--color-text);
+    background: var(--color-bg-muted);
+    border-color: var(--color-border);
+}
+
+/* Current page */
+.pagination__current {
+    background: var(--color-bordo);
+    color: #fff;
+    font-weight: 700;
+}
+
+/* Prev / Next arrows */
+.pagination__prev,
+.pagination__next {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    gap: 0.4rem;
+    padding: 0 1rem;
+    color: var(--color-text-secondary);
+}
+
+.pagination__prev:hover,
+.pagination__next:hover {
+    color: var(--color-bordo);
+    background: transparent;
+    border-color: transparent;
+}
+
+.pagination__prev--disabled,
+.pagination__next--disabled {
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+.pagination__dots {
+    color: var(--color-text-muted);
+    pointer-events: none;
+}
+
+/* ===============================
+   MOBILE FILTER TOGGLE
+================================ */
+
+.shop-filter-toggle {
+    display: none;
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    font-family: inherit;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-text);
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    transition:
+        border-color var(--transition-fast),
+        background var(--transition-fast);
+}
+
+.shop-filter-toggle:hover {
+    border-color: var(--color-bordo);
+}
+
+.shop-filter-toggle svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Mobile overlay background */
+.shop-sidebar__overlay {
+    display: none;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 1024px) {
+    .shop {
+        grid-template-columns: 220px 1fr;
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .shop {
+        grid-template-columns: 1fr;
+        padding: 1.5rem;
+    }
+
+    /* Toggle button visible */
+    .shop-filter-toggle {
+        display: inline-flex;
+    }
+
+    /* Sidebar as drawer */
+    .shop-sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 300px;
+        max-width: 85vw;
+        height: 100vh;
+        max-height: 100vh;
+        background: var(--color-bg);
+        z-index: 1100;
+        padding: 1.5rem;
+        padding-top: 1rem;
+        transform: translateX(-100%);
+        transition: transform 0.35s var(--ease-out);
+        box-shadow: none;
+        overflow-y: auto;
+    }
+
+    .shop-sidebar.sidebar-active {
+        transform: translateX(0);
+        box-shadow: 4px 0 30px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Overlay */
+    .shop-sidebar__overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 1099;
+        opacity: 0;
+        transition: opacity 0.3s var(--ease-smooth);
+    }
+
+    .shop-sidebar__overlay.overlay-active {
+        display: block;
+        opacity: 1;
+    }
+
+    /* Close button inside sidebar */
+    .shop-sidebar__close {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .shop-sidebar__close-title {
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--color-text);
+    }
+
+    .shop-sidebar__close-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0.25rem;
+        color: var(--color-text-muted);
+        transition: color var(--transition-fast);
+    }
+
+    .shop-sidebar__close-btn:hover {
+        color: var(--color-text);
+    }
+
+    .shop-sidebar__close-btn svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    /* Breadcrumb */
+    .breadcrumb {
+        padding: 1rem 1.5rem;
+    }
+
+    /* Pagination */
+    .pagination {
+        gap: 0.15rem;
+    }
+
+    .pagination__link,
+    .pagination__current,
+    .pagination__dots {
+        min-width: 36px;
+        height: 36px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .shop {
+        padding: 1rem;
+    }
+
+    .shop-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .breadcrumb {
+        padding: 0.75rem 1rem;
+    }
+
+    .pagination__prev,
+    .pagination__next {
+        font-size: 0.72rem;
+        padding: 0 0.5rem;
+    }
+}
