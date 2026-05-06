@@ -1,0 +1,41 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-CJH-LyUm.css",
+    "src": "resources/css/app.css",
+    "isEntry": true,
+    "name": "app",
+    "names": [
+      "app.css"
+    ]
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-CoM9Y5on.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  },
+  "resources/js/pages/checkout-confirmar.js": {
+    "file": "assets/checkout-confirmar-BQVykp9o.js",
+    "name": "checkout-confirmar",
+    "src": "resources/js/pages/checkout-confirmar.js",
+    "isEntry": true
+  },
+  "resources/js/pages/checkout-datos.js": {
+    "file": "assets/checkout-datos-Bntlv9xg.js",
+    "name": "checkout-datos",
+    "src": "resources/js/pages/checkout-datos.js",
+    "isEntry": true
+  },
+  "resources/js/pages/checkout-transferencia.js": {
+    "file": "assets/checkout-transferencia-B6NIn0Yf.js",
+    "name": "checkout-transferencia",
+    "src": "resources/js/pages/checkout-transferencia.js",
+    "isEntry": true
+  },
+  "resources/js/pages/product-show.js": {
+    "file": "assets/product-show-BNlZYrZ2.js",
+    "name": "product-show",
+    "src": "resources/js/pages/product-show.js",
+    "isEntry": true
+  }
+}
