@@ -265,9 +265,14 @@
                             </button>
                         </div>
 
-                        <button class="btn--buy-now" type="button">
-                            Comprar ahora
-                        </button>
+                        <form method="POST" action="{{ route('checkout.directo') }}" id="form-comprar-ahora" style="width:100%">
+                            @csrf
+                            <input type="hidden" name="proID" value="{{ $producto->proID }}">
+                            <input type="hidden" name="cantidad" id="comprar-cantidad" value="1">
+                            <button class="btn--buy-now" type="submit" style="width:100%">
+                                Comprar ahora
+                            </button>
+                        </form>
 
                     @else
                         {{-- Sin stock: avisar cuando llegue --}}
@@ -459,153 +464,5 @@
 @endsection
 
 @push('scripts')
-    <script>
-        (function () {
-            'use strict';
-
-            /* ---- Selector de cantidad ---- */
-            const qtyInput  = document.getElementById('qty-input');
-            const qtyMinus  = document.getElementById('qty-minus');
-            const qtyPlus   = document.getElementById('qty-plus');
-
-            if (qtyInput && qtyMinus && qtyPlus) {
-                const max = parseInt(qtyInput.getAttribute('max'), 10) || 99;
-
-                qtyMinus.addEventListener('click', () => {
-                    const val = parseInt(qtyInput.value, 10);
-                    if (val > 1) {
-                        qtyInput.value = val - 1;
-                        syncQtyButtons();
-                    }
-                });
-
-                qtyPlus.addEventListener('click', () => {
-                    const val = parseInt(qtyInput.value, 10);
-                    if (val < max) {
-                        qtyInput.value = val + 1;
-                        syncQtyButtons();
-                    }
-                });
-
-                qtyInput.addEventListener('change', () => {
-                    let val = parseInt(qtyInput.value, 10);
-                    if (isNaN(val) || val < 1) val = 1;
-                    if (val > max) val = max;
-                    qtyInput.value = val;
-                    syncQtyButtons();
-                });
-
-                function syncQtyButtons() {
-                    const val = parseInt(qtyInput.value, 10);
-                    qtyMinus.disabled = (val <= 1);
-                    qtyPlus.disabled  = (val >= max);
-                }
-
-                syncQtyButtons();
-            }
-
-            /* ---- Thumbnails de galería ---- */
-            const thumbs   = document.querySelectorAll('.product-gallery__thumb');
-            const mainImg  = document.getElementById('gallery-main-img');
-
-            thumbs.forEach(thumb => {
-                thumb.addEventListener('click', () => {
-                    const src = thumb.dataset.src;
-                    if (mainImg && src) {
-                        mainImg.src = src;
-                    }
-                    thumbs.forEach(t => t.classList.remove('active'));
-                    thumb.classList.add('active');
-                });
-            });
-
-            /* ---- Zoom modal ---- */
-            const galleryMain = document.getElementById('gallery-main');
-            const zoomModal   = document.getElementById('zoom-modal');
-            const zoomImg     = document.getElementById('zoom-img');
-            const zoomClose   = document.getElementById('zoom-close');
-
-            if (galleryMain && zoomModal && zoomImg) {
-                galleryMain.addEventListener('click', () => {
-                    zoomImg.src = mainImg.src;
-                    zoomImg.alt = mainImg.alt;
-                    zoomModal.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                });
-
-                function closeZoom() {
-                    zoomModal.classList.remove('active');
-                    document.body.style.overflow = '';
-                }
-
-                zoomClose.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    closeZoom();
-                });
-
-                zoomModal.addEventListener('click', closeZoom);
-
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape') closeZoom();
-                });
-            }
-
-            /* ---- Acordeón ---- */
-            const triggers = document.querySelectorAll('.product-accordion__trigger');
-
-            triggers.forEach(trigger => {
-                trigger.addEventListener('click', () => {
-                    const item     = trigger.closest('.product-accordion__item');
-                    const isOpen   = item.classList.contains('open');
-                    const expanded = !isOpen;
-
-                    item.classList.toggle('open', expanded);
-                    trigger.setAttribute('aria-expanded', expanded);
-                });
-            });
-
-            /* ---- Wishlist toggle (visual, sin backend aún) ---- */
-            const wishlistBtn = document.querySelector('.btn--wishlist');
-            if (wishlistBtn) {
-                wishlistBtn.addEventListener('click', () => {
-                    const isActive = wishlistBtn.classList.toggle('active');
-                    wishlistBtn.setAttribute(
-                        'aria-label',
-                        isActive ? 'Quitar de lista de deseos' : 'Guardar en lista de deseos'
-                    );
-                    // Completar con llamada AJAX cuando el módulo esté listo
-                });
-            }
-
-            /* ---- Agregar al carrito (placeholder) ---- */
-            const addCartBtn = document.querySelector('.btn--add-cart');
-            if (addCartBtn) {
-                addCartBtn.addEventListener('click', () => {
-                    const productId = addCartBtn.dataset.productId;
-                    const qty       = qtyInput ? parseInt(qtyInput.value, 10) : 1;
-
-                    // TODO: reemplazar con llamada real al carrito
-                    console.log('Agregar al carrito:', { productId, qty });
-
-                    // Feedback visual temporal
-                    const originalText = addCartBtn.innerHTML;
-                    addCartBtn.innerHTML = `
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-                ¡Agregado!
-            `;
-                    addCartBtn.style.background = '#16a34a';
-                    addCartBtn.disabled = true;
-
-                    setTimeout(() => {
-                        addCartBtn.innerHTML = originalText;
-                        addCartBtn.style.background = '';
-                        addCartBtn.disabled = false;
-                    }, 2000);
-                });
-            }
-
-        })();
-    </script>
+    @vite('resources/js/pages/product-show.js')
 @endpush

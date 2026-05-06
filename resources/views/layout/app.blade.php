@@ -5,6 +5,7 @@
     <title>@yield('title', 'Unagi Piercing')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Unagi Piercing - Joyería y piercing profesional. Materiales de calidad, diseño y cuidado.">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     {{-- Fonts --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,6 +26,8 @@
 
 @include('layout.footer')
 
+@include('layout.partials.carrito-drawer')
+
 {{-- WhatsApp flotante --}}
 <a href="https://wa.me/5491100000000" target="_blank" rel="noopener" class="whatsapp-btn" aria-label="Contactar por WhatsApp">
     <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
@@ -33,34 +36,8 @@
 </a>
 
 {{-- JS --}}
-<script>
-    // Burger menu
-    const burger = document.querySelector('.burger');
-    const nav = document.querySelector('.nav-links');
-
-    if (burger) {
-        burger.addEventListener('click', () => {
-            nav.classList.toggle('nav-active');
-            burger.classList.toggle('active');
-        });
-
-        // Cerrar menu al hacer click en un link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                nav.classList.remove('nav-active');
-                burger.classList.remove('active');
-            });
-        });
-    }
-
-    // Header scroll shadow
-    const header = document.querySelector('.header');
-    if (header) {
-        window.addEventListener('scroll', () => {
-            header.classList.toggle('scrolled', window.scrollY > 10);
-        });
-    }
-</script>
+<script src="{{ asset('js/unagi/carrito.js') }}"></script>
+@vite('resources/js/app.js')
 @stack('scripts')
 </body>
 </html>
